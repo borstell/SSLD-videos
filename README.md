@@ -1,5 +1,5 @@
 # SSLD-videos
-Downloads videos from the Swedish Sign Language dictionary (http://teckensprakslexikon.su.se).
+Downloads videos from the [Swedish Sign Language dictionary](http://teckensprakslexikon.su.se).
 
 Requires Python3 with package `bs4`, and that Wget is installed.
 
