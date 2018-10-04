@@ -10,27 +10,34 @@ This script collects videos of signs in the Swedish Sign Language Dictionary
 (teckensprakslexikon.su.se).
 """
 
-def get_sign(num):
-	# Collects the video of a sign based on the ID number from the dictionary as input
-	top_url = "http://teckensprakslexikon.su.se"
-	try:
-		url = top_url+"/ord/"+num    #current
-		html = urllib.request.urlopen(url)
-		soup = BeautifulSoup(html,"html.parser")
-		vid = re.findall(r'file: "(.*tecken.mp4)',soup.text)
-		vid_url = top_url+vid[0]
-		vidname = vid_url.split("/")[-1]
-		wget1 = "wget -c -O "+vidname+" "+vid_url
-		os.system(wget1)
-	except:
-		print("Error! Sign not found!")
+def fetch_sign_video(id, long_name=True):
+    """Fetches and saves the video for the sign with the provided id"""
 
-def get_videos(all_nums):
-	# Iterates over the inputted IDs and downloads the sign videos
-	for num in all_nums:
-		if len(num) < 5:
-			num = num.zfill(5)
-		get_sign(num)
+    base = "https://teckensprakslexikon.su.se"
+    infopage = base + '/ord/' + id
+    try:
+        page = urllib.request.urlopen(infopage)
+        soup = BeautifulSoup(page, 'html.parser')
+        videlem = soup.find(id='ts-headvideo')
+        source = videlem.find('source')
+        vidfile = source['src']
+
+        if long_name:
+            dst = vidfile.split('/')[-1]
+        else:
+            dst = "{}.mp4".format(id)
+
+        urllib.request.urlretrieve(base + vidfile, dst)
+        print("Wrote {}".format(dst))
+    except Exception as e:
+        sys.exit(e)
+
+def get_videos(ids, long_name):
+    """Iterates through list ids and fetches each element after padding if necessary."""
+    for id in ids:
+        if len(id) < 5:
+            id = id.zfill(5)
+        fetch_sign_video(id, long_name)
 
 def main():
 	try:
