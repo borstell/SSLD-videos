@@ -1,4 +1,7 @@
-import sys,os,re,urllib.request
+import sys
+import argparse
+import urllib
+from urllib import request
 from bs4 import BeautifulSoup
 
 """
