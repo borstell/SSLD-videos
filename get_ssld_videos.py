@@ -40,11 +40,16 @@ def get_videos(ids, long_name):
         fetch_sign_video(id, long_name)
 
 def main():
-	try:
-		nums = sys.argv[1].split(",")
-		get_videos(nums)
-	except:
-		print('Error! The correct input is "python3 get_ssld_videos.py {signIDs,separated,by,commas}"')
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description='Download videos from SSLD.')
+    # Take one or more ids to fetch.
+    parser.add_argument('ids', nargs='+', help='ID(s) to download.')
+    # Provides the option -S to save using short (ID only) names.
+    parser.add_argument('-S', '--short-names', dest='long_name', action='store_false',
+                        help='Store using id-only (00001.mp4) names?')
+    # Parse arguments
+    args = parser.parse_args()
+    get_videos(args.ids, args.long_name)
 
-if __name__=="__main__":
-	main()
+if __name__ == "__main__":
+    main()
