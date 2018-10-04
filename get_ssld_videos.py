@@ -6,7 +6,8 @@ from urllib import request
 from bs4 import BeautifulSoup
 
 """
-This script collects videos of signs in the Swedish Sign Language Dictionary (teckensprakslexikon.su.se).
+This script collects videos of signs in the Swedish Sign Language Dictionary
+(teckensprakslexikon.su.se).
 """
 
 def get_sign(num):
