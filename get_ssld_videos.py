@@ -82,6 +82,9 @@ def main():
     if args.searchwords is not None:
         for word in args.searchwords:
             word_ids = get_ids_from_name(word, args.num_hits)
+            if len(word_ids) == 0:
+                print("Unable to find any signs for word {}.".format(word))
+                continue
             for id in word_ids:
                 ids.append(id)
 
