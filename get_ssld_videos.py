@@ -73,7 +73,25 @@ def main():
     parser.add_argument('searchwords', nargs='*', type=str, help='Word(s) to search for and download.')
     # Parse arguments
     args = parser.parse_args()
-    get_videos(args.ids, args.long_name)
+
+    if args.num_hits is not None and args.searchwords is None:
+        print("--num-hits only relevant when used with searchwords.")
+
+    ids = []
+    # Add searchwords to list of IDs to fetch
+    if args.searchwords is not None:
+        for word in args.searchwords:
+            word_ids = get_ids_from_name(word, args.num_hits)
+            for id in word_ids:
+                ids.append(id)
+
+    # Add ids to list of IDs to fetch
+    if args.ids is not None:
+        for id in args.ids:
+            ids.append(id)
+
+    # Fetch IDs
+    get_videos(ids, args.long_name)
 
 if __name__ == "__main__":
     main()
