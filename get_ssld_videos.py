@@ -3,6 +3,7 @@ import sys
 import argparse
 import urllib
 from urllib import request
+from urllib import parse
 from bs4 import BeautifulSoup
 
 """
@@ -38,6 +39,24 @@ def get_videos(ids, long_name):
         if len(id) < 5:
             id = id.zfill(5)
         fetch_sign_video(id, long_name)
+
+
+def get_ids_from_name(name, maxfinds):
+    """Returns a list of IDs that match the search term 'name'. """
+    base = "https://teckensprakslexikon.su.se/sok?{}"
+    q = {"q": name}
+    try:
+        query = base.format(urllib.parse.urlencode(q))
+        page = urllib.request.urlopen(query)
+        soup = BeautifulSoup(page, 'html.parser')
+        tb = soup.find('tbody')
+        ids = tb.find_all("td", class_='id')
+        spantexts = [i.find('span').text for i in ids]
+        if len(ids) > maxfinds:
+            return spantexts[:maxfinds]
+        return spantexts
+    except Exception as e:
+        sys.exit(e)
 
 def main():
     # Set up argument parser
