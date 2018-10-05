@@ -68,7 +68,7 @@ def main():
     parser.add_argument('-n', '--num-hits', dest='num_hits', default=2, type=int,
                         help='Max number of hits a search may yield.')
     # Take one or more ids to fetch.
-    parser.add_argument('-i', '--ids', dest='ids', type=int, nargs='*', help='ID(s) to download.')
+    parser.add_argument('-i', '--ids', dest='ids', nargs='*', help='ID(s) to download.')
     # Take one or more search words to fetch.
     parser.add_argument('searchwords', nargs='*', type=str, help='Word(s) to search for and download.')
     # Parse arguments
