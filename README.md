@@ -8,7 +8,9 @@ Run the script from the command line with
 ./get_ssld_videos.py {search word(s)}
 ```
 
-to search for the word in the SSLD and download hits. The amount of search hits to download can be configured with `-n` or `--num-hits`:
+to search for the word in the SSLD and download hits.
+
+The amount of search hits to download can be configured with `-n` or `--num-hits`:
 ```
 ./get_ssld_videos.py -n 4 anka räv
 ```
