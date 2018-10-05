@@ -11,7 +11,7 @@ or use the flag `--short-names` (`-S`) to rename to downloaded file to only ID n
 ```
 ./get_ssld_videos.py {signID} --short
 ```
-NB: `-S` works as a shorthand for `--short`.
+NB: `-S` works as a shorthand for `--short-names`.
 
 SignIDs can be given in the full five-digit format (e.g., `00001`) or without zero-fillers (e.g., `1`).
 Multiple signIDs can be entered at once, and both input formats can be mixed:
