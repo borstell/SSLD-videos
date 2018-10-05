@@ -61,11 +61,16 @@ def get_ids_from_name(name, maxfinds):
 def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description='Download videos from SSLD.')
-    # Take one or more ids to fetch.
-    parser.add_argument('ids', nargs='+', help='ID(s) to download.')
     # Provides the option -S to save using short (ID only) names.
     parser.add_argument('-S', '--short-names', dest='long_name', action='store_false',
                         help='Store using id-only (00001.mp4) names?')
+    # Provides the option -n to cap how many hits a search may yield.
+    parser.add_argument('-n', '--num-hits', dest='num_hits', default=2, type=int,
+                        help='Max number of hits a search may yield.')
+    # Take one or more ids to fetch.
+    parser.add_argument('-i', '--ids', dest='ids', type=int, nargs='*', help='ID(s) to download.')
+    # Take one or more search words to fetch.
+    parser.add_argument('searchwords', nargs='*', type=str, help='Word(s) to search for and download.')
     # Parse arguments
     args = parser.parse_args()
     get_videos(args.ids, args.long_name)
