@@ -5,19 +5,30 @@ Requires Python3 with package `bs4`.
 
 Run the script from the command line with
 ```
-./get_ssld_videos.py {signID}
+./get_ssld_videos.py {search word(s)}
 ```
-or use the flag `--short-names` (`-S`) to rename to downloaded file to only ID number plus file extension (e.g., `00001.mp4`).
-```
-./get_ssld_videos.py {signID} --short
-```
-NB: `-S` works as a shorthand for `--short`.
 
-SignIDs can be given in the full five-digit format (e.g., `00001`) or without zero-fillers (e.g., `1`).
-Multiple signIDs can be entered at once, and both input formats can be mixed:
+to search for the word in the SSLD and download hits.
+
+The amount of search hits to download can be configured with `-n` or `--num-hits`:
 ```
-./get_ssld_videos.py 00001 2 00003
+./get_ssld_videos.py -n 4 anka räv
+```
+
+Searching for terms with spaces in them can be done by escaping the term in the shell:
+```
+./get_ssld_videos.py "dålig andedräkt" 10\ öre
+```
+
+Downloading one or more IDs from the SSLD can be done with the `-i` or `--ids` flag:
+```
+./get_ssld_videos.py -i 548 9943
+```
+
+Using the flag `-S` or `--short-names` will save the files using only the ID and file extension (e.g., 00001.mp4).
+```
+./get_ssld_videos.py -S Australien
 ```
 
 ## TODO
-- [ ] Implement searching for names of signs instead of having to provide ID
+- [x] Implement searching for names of signs instead of having to provide ID
